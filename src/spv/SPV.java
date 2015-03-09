@@ -11,11 +11,13 @@ package spv;
  */
 public class SPV {
 
-    /**
-     * @param args the command line arguments
-     */
+    public SPV(){
+        System.out.println("Nuevo");
+    }
+    
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        SPV spv = new SPV();
     }
     
 }
