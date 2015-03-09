@@ -5,14 +5,22 @@
  */
 package spv;
 
+import java.awt.Dimension;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Javier
  */
-public class SPV {
+public class SPV extends JFrame{
 
     public SPV(){
-        System.out.println("Nuevo");
+        this.setTitle("Sistema de Punto de Venta");
+        this.setSize(new Dimension (1024, 768));
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setContentPane(new MainScreen());
+        this.setVisible(true);
     }
     
     
