@@ -21,6 +21,7 @@ public class SPV extends JFrame{
         this.setLocationRelativeTo(null);
         this.setContentPane(new MainScreen());
         this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
     
