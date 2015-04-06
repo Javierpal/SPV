@@ -58,7 +58,7 @@ public class SerInf extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Configuracion Servidor");
 
-        Guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Guardado.jpg"))); // NOI18N
+        Guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Guardado.png"))); // NOI18N
         Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarActionPerformed(evt);
