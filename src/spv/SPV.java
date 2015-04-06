@@ -13,17 +13,30 @@ import javax.swing.JFrame;
  * @author Javier
  */
 public class SPV extends JFrame{
-
+    
     public SPV(){
         this.setTitle("Sistema de Punto de Venta");
-        this.setSize(new Dimension (1024, 768));
+        this.setSize(new Dimension (333, 236));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.setContentPane(new MainScreen());
-        this.setVisible(true);
+        Content(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
+    public void Dispose(){
+        dispose();
+    }
+    
+    public void Content(boolean cont){
+        
+        if(cont){
+            this.setContentPane(new MainScreen(this));
+            this.setVisible(true);
+        }else{
+            this.setContentPane(new SerInf(this));
+            this.setVisible(true);
+        }
+    }
     
     public static void main(String[] args) {
         SPV spv = new SPV();
