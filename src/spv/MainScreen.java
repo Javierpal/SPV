@@ -7,6 +7,7 @@ package spv;
 
 import Conexion.Conexion;
 import SPVIN.Frame;
+import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -126,8 +127,18 @@ public class MainScreen extends javax.swing.JPanel {
         });
 
         Contraseña.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Contraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ContraseñaKeyReleased(evt);
+            }
+        });
 
         Usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        Usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                UsuarioKeyReleased(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Autenticacion");
@@ -204,6 +215,20 @@ public class MainScreen extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Autenticacion();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void UsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_UsuarioKeyReleased
+        int key = evt.getKeyCode();
+        if(key == KeyEvent.VK_ENTER){
+            Autenticacion();
+        }
+    }//GEN-LAST:event_UsuarioKeyReleased
+
+    private void ContraseñaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ContraseñaKeyReleased
+        int key = evt.getKeyCode();
+        if(key == KeyEvent.VK_ENTER){
+            Autenticacion();
+        }
+    }//GEN-LAST:event_ContraseñaKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
