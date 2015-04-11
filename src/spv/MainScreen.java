@@ -6,7 +6,6 @@
 package spv;
 
 import Conexion.Conexion;
-import SPVIN.Frame;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.sql.Connection;
@@ -58,7 +57,8 @@ public class MainScreen extends javax.swing.JPanel {
             if(rs.next()){
                     acces=true;
                     in=4;
-                    Frame fr = new Frame();
+                    MFrame fr = new MFrame();
+                    setVisible(true);
                     spv.Dispose();
                     intento.setText("¡Acceso Consedido!");
             }else{
