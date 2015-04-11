@@ -25,8 +25,8 @@ public class MainScreen extends javax.swing.JPanel {
     SPV spv;
     public boolean acces=false;
     public boolean inicio=true;
-    String p;
-    String u;
+    protected String p;
+    protected String u;
     int in =0;
     
     public MainScreen(SPV spv) {
@@ -39,6 +39,10 @@ public class MainScreen extends javax.swing.JPanel {
         Connection cn = cc.Conexion();
         ResultSet rs = null;
         
+        if(cc.GetConexion()==1){
+                Notificar.setText("No hay Conexion con Base de Datos");
+        }
+        
         u = Usuario.getText();
         p = Contraseña.getText();
         
@@ -49,7 +53,7 @@ public class MainScreen extends javax.swing.JPanel {
             pst.setString(1, u);
             pst.setString(2, p);
             rs = pst.executeQuery();
-        
+            
         if(!acces){
             if(rs.next()){
                     acces=true;
@@ -84,7 +88,6 @@ public class MainScreen extends javax.swing.JPanel {
                             System.exit(0);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
-                            Notificar.setText("No hay Conexion con Base de Datos");
                         }
                     }
             }
