@@ -17,7 +17,7 @@ public class SPV extends JFrame{
     
     public SPV(){
         this.setTitle("Sistema de Punto de Venta");
-        this.setSize(new Dimension (333, 236));
+        this.setSize(new Dimension (333, 248));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         Content(true);
