@@ -47,13 +47,22 @@ public class MFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        Archivo = new javax.swing.JMenu();
+        Guardar = new javax.swing.JMenuItem();
+        Exportar = new javax.swing.JMenuItem();
+        Ventanas = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        VAdicional = new javax.swing.JMenu();
+        PV = new javax.swing.JMenuItem();
+        Crear = new javax.swing.JMenu();
+        Tabla = new javax.swing.JMenuItem();
+        BD = new javax.swing.JMenuItem();
+        Acerca = new javax.swing.JMenu();
+        spv = new javax.swing.JMenuItem();
+        Shift = new javax.swing.JMenuItem();
+        Salir = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,10 +85,17 @@ public class MFrame extends javax.swing.JFrame {
         jPanel1.add(new Venta(), "Card2");
         jPanel1.add(new Recepcion(), "Card3");
 
-        jMenu1.setText("Archivo");
-        jMenuBar1.add(jMenu1);
+        Archivo.setText("Archivo");
 
-        jMenu2.setText("Ventanas");
+        Guardar.setText("Guardar");
+        Archivo.add(Guardar);
+
+        Exportar.setText("Exportar");
+        Archivo.add(Exportar);
+
+        jMenuBar1.add(Archivo);
+
+        Ventanas.setText("Ventanas");
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/punt.png"))); // NOI18N
         jMenuItem3.setText("Punto de Venta");
@@ -88,7 +104,7 @@ public class MFrame extends javax.swing.JFrame {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        Ventanas.add(jMenuItem3);
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/caja.png"))); // NOI18N
         jMenuItem4.setText("Recepcion de Mercancia");
@@ -98,24 +114,55 @@ public class MFrame extends javax.swing.JFrame {
                 jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        Ventanas.add(jMenuItem4);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(Ventanas);
 
-        jMenu3.setText("Venta Adicional");
+        VAdicional.setText("Venta Adicional");
 
-        jMenuItem1.setText("Ventana Adicional");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        PV.setText("Punto de Venta");
+        PV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                PVActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        VAdicional.add(PV);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(VAdicional);
 
-        jMenu4.setText("Acerca de...");
-        jMenuBar1.add(jMenu4);
+        Crear.setText("Crear");
+        Crear.setActionCommand("");
+
+        Tabla.setText("Tabla");
+        Crear.add(Tabla);
+
+        BD.setText("Base de Datos");
+        Crear.add(BD);
+
+        jMenuBar1.add(Crear);
+
+        Acerca.setText("Acerca de...");
+
+        spv.setText("Programa (SPV)");
+        Acerca.add(spv);
+
+        Shift.setText("Shift Soft");
+        Acerca.add(Shift);
+
+        jMenuBar1.add(Acerca);
+
+        Salir.setText("Salir");
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/cross.png"))); // NOI18N
+        jMenuItem2.setText("Salir Definitivamente");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        Salir.add(jMenuItem2);
+
+        jMenuBar1.add(Salir);
 
         setJMenuBar(jMenuBar1);
 
@@ -141,22 +188,35 @@ public class MFrame extends javax.swing.JFrame {
         CambiarCarta("Card3");
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void PVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PVActionPerformed
         MFrame m = new MFrame();
         setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_PVActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu Acerca;
+    private javax.swing.JMenu Archivo;
+    private javax.swing.JMenuItem BD;
+    private javax.swing.JMenu Crear;
+    private javax.swing.JMenuItem Exportar;
+    private javax.swing.JMenuItem Guardar;
+    private javax.swing.JMenuItem PV;
+    private javax.swing.JMenu Salir;
+    private javax.swing.JMenuItem Shift;
+    private javax.swing.JMenuItem Tabla;
+    private javax.swing.JMenu VAdicional;
+    private javax.swing.JMenu Ventanas;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenuItem spv;
     // End of variables declaration//GEN-END:variables
 }
