@@ -43,10 +43,22 @@ public class Venta extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
 
@@ -140,6 +152,52 @@ public class Venta extends javax.swing.JPanel {
         jPanel6.setMinimumSize(new java.awt.Dimension(0, 100));
         jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.PAGE_AXIS));
 
+        jPanel7.setMaximumSize(new java.awt.Dimension(32767, 23));
+        jPanel7.setMinimumSize(new java.awt.Dimension(100, 23));
+        jPanel7.setPreferredSize(new java.awt.Dimension(812, 23));
+        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Codigo");
+        jLabel4.setMaximumSize(new java.awt.Dimension(320, 14));
+        jLabel4.setMinimumSize(new java.awt.Dimension(320, 14));
+        jLabel4.setPreferredSize(new java.awt.Dimension(320, 14));
+        jPanel7.add(jLabel4);
+
+        jLabel5.setText("Nombre");
+        jLabel5.setMaximumSize(new java.awt.Dimension(244444, 14));
+        jLabel5.setMinimumSize(new java.awt.Dimension(50, 14));
+        jLabel5.setPreferredSize(new java.awt.Dimension(175, 14));
+        jPanel7.add(jLabel5);
+
+        jLabel6.setText("Cantidad");
+        jLabel6.setMaximumSize(new java.awt.Dimension(70, 14));
+        jLabel6.setMinimumSize(new java.awt.Dimension(70, 14));
+        jLabel6.setPreferredSize(new java.awt.Dimension(70, 14));
+        jPanel7.add(jLabel6);
+
+        jLabel7.setText("Precio");
+        jLabel7.setMaximumSize(new java.awt.Dimension(58, 14));
+        jLabel7.setMinimumSize(new java.awt.Dimension(58, 14));
+        jLabel7.setPreferredSize(new java.awt.Dimension(58, 14));
+        jPanel7.add(jLabel7);
+
+        jLabel8.setText("Descuento");
+        jLabel8.setMaximumSize(new java.awt.Dimension(80, 14));
+        jLabel8.setMinimumSize(new java.awt.Dimension(80, 14));
+        jLabel8.setPreferredSize(new java.awt.Dimension(80, 14));
+        jPanel7.add(jLabel8);
+
+        jLabel9.setText("I.V.A");
+        jLabel9.setMaximumSize(new java.awt.Dimension(120, 14));
+        jLabel9.setMinimumSize(new java.awt.Dimension(120, 14));
+        jLabel9.setPreferredSize(new java.awt.Dimension(120, 14));
+        jPanel7.add(jLabel9);
+
+        jPanel6.add(jPanel7);
+
+        jPanel3.setMaximumSize(new java.awt.Dimension(214748364, 23));
+        jPanel3.setPreferredSize(new java.awt.Dimension(812, 23));
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel3.setText("Producto");
@@ -147,7 +205,33 @@ public class Venta extends javax.swing.JPanel {
 
         jButton3.setText("...");
         jPanel3.add(jButton3);
+
+        jTextField1.setMaximumSize(new java.awt.Dimension(150, 2147483647));
+        jTextField1.setMinimumSize(new java.awt.Dimension(150, 20));
+        jTextField1.setPreferredSize(new java.awt.Dimension(150, 20));
         jPanel3.add(jTextField1);
+        jPanel3.add(jTextField2);
+
+        jTextField3.setMaximumSize(new java.awt.Dimension(65, 2147483647));
+        jTextField3.setMinimumSize(new java.awt.Dimension(65, 20));
+        jTextField3.setName(""); // NOI18N
+        jTextField3.setPreferredSize(new java.awt.Dimension(65, 20));
+        jPanel3.add(jTextField3);
+
+        jTextField4.setMaximumSize(new java.awt.Dimension(65, 2147483647));
+        jTextField4.setMinimumSize(new java.awt.Dimension(65, 20));
+        jTextField4.setPreferredSize(new java.awt.Dimension(65, 20));
+        jPanel3.add(jTextField4);
+
+        jTextField5.setMaximumSize(new java.awt.Dimension(65, 2147483647));
+        jTextField5.setMinimumSize(new java.awt.Dimension(65, 20));
+        jTextField5.setPreferredSize(new java.awt.Dimension(65, 20));
+        jPanel3.add(jTextField5);
+
+        jTextField6.setMaximumSize(new java.awt.Dimension(65, 2147483647));
+        jTextField6.setMinimumSize(new java.awt.Dimension(65, 20));
+        jTextField6.setPreferredSize(new java.awt.Dimension(65, 20));
+        jPanel3.add(jTextField6);
 
         jButton1.setText("Agregar");
         jPanel3.add(jButton1);
@@ -162,7 +246,7 @@ public class Venta extends javax.swing.JPanel {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 77, Short.MAX_VALUE)
+            .addGap(0, 54, Short.MAX_VALUE)
         );
 
         jPanel6.add(jPanel9);
@@ -182,6 +266,12 @@ public class Venta extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -189,10 +279,16 @@ public class Venta extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }
