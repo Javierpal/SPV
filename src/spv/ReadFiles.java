@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,21 +31,20 @@ public class ReadFiles {
     static String LCVersion;
     static String BDContraseña;
     static String BDUsuario;
+    static final String inf = "C:\\ShiftSoft\\Punto de Venta\\config.spv";
     
     static void Leer(){
-        String inf = "C:\\ShiftSoft\\Punto de Venta\\inf.txt";
-        
         File f = new File(inf); 
         a = new String[6];
         try {
             int i = 0;
             FileInputStream fStream = new FileInputStream(inf);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fStream));
-            while (in.ready()) {
-                a[i] = in.readLine();
-                i++;
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(fStream))) {
+                while (in.ready()) {
+                    a[i] = in.readLine();
+                    i++;
+                }
             }
-            in.close();
             
             String Se[] = a[0].split(":");
             String BD[] = a[1].split(":");
@@ -67,6 +68,27 @@ public class ReadFiles {
         }
     }
     
+    public static String[] readFromWeb(String leer, int limit){
+        String result[] = null;
+        URL link;
+        try {
+            result = new String[limit];
+            link = new URL(leer);
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(link.openStream()))) {
+                int i=0;
+                while (in.ready()) {
+                    result[i] = in.readLine();
+                    i++;
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ReadFiles.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(ReadFiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    
     public static String GetServer(){
         Leer();
         return server;
@@ -79,9 +101,10 @@ public class ReadFiles {
         Leer();
         return Version;
     }
-    public static String GetLCVersion(){
+    public static float GetLCVersion(){
         Leer();
-        return LCVersion;
+        float LCV = Float.valueOf(LCVersion);
+        return LCV;
     }
     public static String GetBDUsuario(){
         Leer();
@@ -96,7 +119,7 @@ public class ReadFiles {
         Leer();
         PrintWriter writer;
         try {
-            writer = new PrintWriter("C:\\ShiftSoft\\Punto de Venta\\inf.txt", "UTF-8");
+            writer = new PrintWriter(inf, "UTF-8");
             writer.println("ServerIP:" + ser);
             writer.println("BD:" + BaseDatos);
             writer.println("Ver:" + Version);
@@ -104,9 +127,7 @@ public class ReadFiles {
             writer.println("BDUsuario:" + BDUsuario);
             writer.println("BDContraseña:" + BDContraseña);
             writer.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SerInf.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(SerInf.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -114,7 +135,7 @@ public class ReadFiles {
         Leer();
         PrintWriter writer;
         try {
-            writer = new PrintWriter("C:\\ShiftSoft\\Punto de Venta\\inf.txt", "UTF-8");
+            writer = new PrintWriter(inf, "UTF-8");
             writer.println("ServerIP:" + server);
             writer.println("BD:" + bd);
             writer.println("Ver:" + Version);
@@ -122,9 +143,7 @@ public class ReadFiles {
             writer.println("BDUsuario:" + BDUsuario);
             writer.println("BDContraseña:" + BDContraseña);
             writer.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SerInf.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(SerInf.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -132,7 +151,7 @@ public class ReadFiles {
         Leer();
         PrintWriter writer;
         try {
-            writer = new PrintWriter("C:\\ShiftSoft\\Punto de Venta\\inf.txt", "UTF-8");
+            writer = new PrintWriter(inf, "UTF-8");
             writer.println("ServerIP:" + server);
             writer.println("BD:" + BaseDatos);
             writer.println("Ver:" + ver);
@@ -140,9 +159,7 @@ public class ReadFiles {
             writer.println("BDUsuario:" + BDUsuario);
             writer.println("BDContraseña:" + BDContraseña);
             writer.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SerInf.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(SerInf.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -150,7 +167,7 @@ public class ReadFiles {
         Leer();
         PrintWriter writer;
         try {
-            writer = new PrintWriter("C:\\ShiftSoft\\Punto de Venta\\inf.txt", "UTF-8");
+            writer = new PrintWriter(inf, "UTF-8");
             writer.println("ServerIP:" + server);
             writer.println("BD:" + BaseDatos);
             writer.println("Ver:" + Version);
@@ -158,9 +175,7 @@ public class ReadFiles {
             writer.println("BDUsuario:" + BDUsuario);
             writer.println("BDContraseña:" + BDContraseña);
             writer.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SerInf.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(SerInf.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -168,7 +183,7 @@ public class ReadFiles {
         Leer();
         PrintWriter writer;
         try {
-            writer = new PrintWriter("C:\\ShiftSoft\\Punto de Venta\\inf.txt", "UTF-8");
+            writer = new PrintWriter(inf, "UTF-8");
             writer.println("ServerIP:" + server);
             writer.println("BD:" + BaseDatos);
             writer.println("Ver:" + Version);
@@ -176,9 +191,7 @@ public class ReadFiles {
             writer.println("BDUsuario:" + usu);
             writer.println("BDContraseña:" + BDContraseña);
             writer.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SerInf.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(SerInf.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -186,21 +199,19 @@ public class ReadFiles {
         Leer();
         PrintWriter writer;
         try {
-            writer = new PrintWriter("C:\\ShiftSoft\\Punto de Venta\\inf.txt", "UTF-8");
+            writer = new PrintWriter(inf, "UTF-8");
             writer.println("ServerIP:" + server);
             writer.println("BD:" + BaseDatos);
             writer.println("Ver:" + Version);
             writer.println("LCVer:" + LCVersion);
             writer.println("BDUsuario:" + BDUsuario);
-            if(pass.equals(null)){
+            if(pass == null){
                 writer.println("BDContraseña:");
             }else{
                 writer.println("BDContraseña:" + pass);
             }
             writer.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SerInf.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
+        } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(SerInf.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

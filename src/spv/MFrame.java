@@ -9,30 +9,55 @@ import Ventanas.Recepcion;
 import Ventanas.Venta;
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import Conexion.Download;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
  *
  * @author Javier
  */
-public class MFrame extends javax.swing.JFrame {
+public class MFrame extends javax.swing.JFrame implements Runnable {
 
-    /**
-     * Creates new form MFrame
-     */
+    Download dw;
+    boolean downloading = false;
+    
     public MFrame() {
         this.setTitle("Sistema Punto de Venta");
         this.setLocationRelativeTo(null);
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(new Dimension(800,600));
         this.setResizable(true);
         this.setVisible(true);
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        init();
+    }
+    final void init(){
+        Thread thread = new Thread(this);
+        thread.start();
+        Actualizando.setVisible(false);
+        progress.setVisible(false);
     }
 
     public void CambiarCarta(String nwCard){
         CardLayout cl = (CardLayout)(jPanel1.getLayout());
         cl.show(jPanel1,nwCard);
+    }
+    
+    public void ActualizarLC(){
+        
+        String a[] = ReadFiles.readFromWeb("http://shiftsoft.esy.es/Update.txt",2);
+        String LCVersion[] = a[1].split(":");
+        
+        if(ReadFiles.GetLCVersion() < Float.parseFloat(LCVersion[1])){
+            Actualizando.setVisible(true);
+            progress.setVisible(true);
+            downloading = true;
+            dw = new Download("http://shiftsoft.esy.es/ACII%20SFX%20FINAL.zip");
+            ReadFiles.WriteLCVer(LCVersion[1]);
+        }
+        
     }
     
     /**
@@ -46,6 +71,11 @@ public class MFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        Actualizando = new javax.swing.JLabel();
+        progress = new javax.swing.JProgressBar();
         jMenuBar1 = new javax.swing.JMenuBar();
         Archivo = new javax.swing.JMenu();
         Guardar = new javax.swing.JMenuItem();
@@ -65,6 +95,10 @@ public class MFrame extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel1.setLayout(new java.awt.CardLayout());
 
@@ -76,7 +110,7 @@ public class MFrame extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 445, Short.MAX_VALUE)
+            .addGap(0, 415, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel2, "card2");
@@ -84,6 +118,45 @@ public class MFrame extends javax.swing.JFrame {
         jPanel1.add(jPanel2, "Card1");
         jPanel1.add(new Venta(), "Card2");
         jPanel1.add(new Recepcion(), "Card3");
+
+        getContentPane().add(jPanel1);
+
+        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel3.setMaximumSize(new java.awt.Dimension(32767, 30));
+        jPanel3.setMinimumSize(new java.awt.Dimension(0, 30));
+        jPanel3.setPreferredSize(new java.awt.Dimension(661, 30));
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 355, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jPanel4);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jPanel5.setMaximumSize(new java.awt.Dimension(300, 30));
+        jPanel5.setMinimumSize(new java.awt.Dimension(300, 30));
+        jPanel5.setPreferredSize(new java.awt.Dimension(300, 30));
+        jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.LINE_AXIS));
+
+        Actualizando.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Actualizando.setText("Actualizando");
+        Actualizando.setMaximumSize(new java.awt.Dimension(79, 20));
+        Actualizando.setMinimumSize(new java.awt.Dimension(79, 20));
+        Actualizando.setPreferredSize(new java.awt.Dimension(79, 20));
+        jPanel5.add(Actualizando);
+        jPanel5.add(progress);
+
+        jPanel3.add(jPanel5);
+
+        getContentPane().add(jPanel3);
 
         Archivo.setText("Archivo");
 
@@ -166,17 +239,6 @@ public class MFrame extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -200,6 +262,7 @@ public class MFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Acerca;
+    private javax.swing.JLabel Actualizando;
     private javax.swing.JMenu Archivo;
     private javax.swing.JMenuItem BD;
     private javax.swing.JMenu Crear;
@@ -217,6 +280,20 @@ public class MFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JProgressBar progress;
     private javax.swing.JMenuItem spv;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+        ActualizarLC();
+        if(downloading){
+            while((int)dw.getProgress() != 100){
+            progress.setValue((int)dw.getProgress());
+            }
+        }
+    }
 }
