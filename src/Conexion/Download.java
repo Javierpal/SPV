@@ -23,6 +23,8 @@ public class Download extends Observable implements Runnable{
     public static final int COMPLETE = 2;
     public static final int CANCELLED = 3;
     public static final int ERROR = 4;
+    
+    public static boolean completo = false;
 
     private URL url;
     private int size;
@@ -38,6 +40,10 @@ public class Download extends Observable implements Runnable{
         status = DOWNLOADING;
 
         download();
+    }
+    
+    public boolean getComplete(){
+        return completo;
     }
 
     public String getUrl() {
@@ -150,7 +156,7 @@ public class Download extends Observable implements Runnable{
             if (stream != null) {
                 try {
                     stream.close();
-                    System.out.println("Completo");
+                    completo = true;
                 } catch (Exception e) {}
             }
         }

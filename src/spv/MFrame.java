@@ -23,9 +23,9 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
     boolean downloading = false;
     
     public MFrame() {
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(SPV.class.getResource("Jumbo.png")));
         this.setTitle("Sistema Punto de Venta");
         this.setLocationRelativeTo(null);
-        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(new Dimension(800,600));
         this.setResizable(true);
         this.setVisible(true);
@@ -54,7 +54,7 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
             Actualizando.setVisible(true);
             progress.setVisible(true);
             downloading = true;
-            dw = new Download("http://shiftsoft.esy.es/ACII%20SFX%20FINAL.zip");
+            dw = new Download("http://shiftsoft.esy.es/SPV.jar");
             ReadFiles.WriteLCVer(LCVersion[1]);
         }
         
@@ -295,5 +295,7 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
             progress.setValue((int)dw.getProgress());
             }
         }
+        Actualizando.setText("Completado");
+        progress.setVisible(false);
     }
 }

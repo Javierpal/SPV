@@ -6,6 +6,7 @@
 package spv;
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
@@ -16,6 +17,7 @@ import javax.swing.UIManager;
 public class SPV extends JFrame{
     
     public SPV(){
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(SPV.class.getResource("Jumbo.png")));
         this.setTitle("Sistema de Punto de Venta");
         this.setSize(new Dimension (333, 248));
         this.setResizable(false);
