@@ -23,6 +23,22 @@ public class Venta extends javax.swing.JPanel {
         initComponents();
     }
     
+    public void traer(){
+        int row = TablaPro.getSelectedRow();
+        String a = String.valueOf(TablaPro.getValueAt(row, 0));
+        Codigo.setText(a);
+        rellenar(a);
+        producto.dispose();
+    }
+    
+    public void rellenar(String ID){
+        String[] datos = {"nombre","Precio"};
+        System.out.println(datos.length);
+        String a[] = SQL.llenar(ID, datos, datos.length, "productos", "ID_Producto");
+        nombre.setText(a[0]);
+        precio.setText(a[1]);
+    }
+    
     public void fillTable(String sql, String table, String FSentense){
         String[] columnas = { "ID Producto","Nombre","Descripcion","Precio","Precio Venta","U.M.","Cantidad","Marca","Proveedor","Ubicacion","Minimo","Maximo","Fecha Cotizacion"};
         if(sql.equals("") && table.equals("") && FSentense.equals("")){
@@ -38,14 +54,6 @@ public class Venta extends javax.swing.JPanel {
         String b = Nombrepro.getText();
         String c = "";
         String what = "";
-//        if(a.equals("")){
-//            c = b;
-//            what = "nombre";
-//        }else if(b.equals("")){
-//            c = a;
-//            what = "ID_Producto";
-//        }
-
         if(nom){
             c = a;
             what = "ID_Producto";
@@ -107,10 +115,10 @@ public class Venta extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        Codigo = new javax.swing.JTextField();
+        nombre = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        precio = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -205,6 +213,11 @@ public class Venta extends javax.swing.JPanel {
             }
         ));
         TablaPro.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        TablaPro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaProMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(TablaPro);
 
         jPanel20.add(jScrollPane2);
@@ -360,11 +373,11 @@ public class Venta extends javax.swing.JPanel {
         });
         jPanel3.add(jButton3);
 
-        jTextField1.setMaximumSize(new java.awt.Dimension(150, 2147483647));
-        jTextField1.setMinimumSize(new java.awt.Dimension(150, 20));
-        jTextField1.setPreferredSize(new java.awt.Dimension(150, 20));
-        jPanel3.add(jTextField1);
-        jPanel3.add(jTextField2);
+        Codigo.setMaximumSize(new java.awt.Dimension(150, 2147483647));
+        Codigo.setMinimumSize(new java.awt.Dimension(150, 20));
+        Codigo.setPreferredSize(new java.awt.Dimension(150, 20));
+        jPanel3.add(Codigo);
+        jPanel3.add(nombre);
 
         jTextField3.setMaximumSize(new java.awt.Dimension(65, 2147483647));
         jTextField3.setMinimumSize(new java.awt.Dimension(65, 20));
@@ -372,10 +385,10 @@ public class Venta extends javax.swing.JPanel {
         jTextField3.setPreferredSize(new java.awt.Dimension(65, 20));
         jPanel3.add(jTextField3);
 
-        jTextField4.setMaximumSize(new java.awt.Dimension(65, 2147483647));
-        jTextField4.setMinimumSize(new java.awt.Dimension(65, 20));
-        jTextField4.setPreferredSize(new java.awt.Dimension(65, 20));
-        jPanel3.add(jTextField4);
+        precio.setMaximumSize(new java.awt.Dimension(65, 2147483647));
+        precio.setMinimumSize(new java.awt.Dimension(65, 20));
+        precio.setPreferredSize(new java.awt.Dimension(65, 20));
+        jPanel3.add(precio);
 
         jTextField5.setMaximumSize(new java.awt.Dimension(65, 2147483647));
         jTextField5.setMinimumSize(new java.awt.Dimension(65, 20));
@@ -434,10 +447,17 @@ public class Venta extends javax.swing.JPanel {
         Busqueda(false);
     }//GEN-LAST:event_NombreproKeyReleased
 
+    private void TablaProMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProMouseClicked
+        if(evt.getClickCount() == 2){
+            traer();
+        }
+    }//GEN-LAST:event_TablaProMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Buscar;
     private javax.swing.JLabel Cliente;
+    private javax.swing.JTextField Codigo;
     private javax.swing.JTextField IDpro;
     private javax.swing.JTextField Nombrepro;
     private javax.swing.JPanel Productopane;
@@ -479,11 +499,10 @@ public class Venta extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField nombre;
+    private javax.swing.JTextField precio;
     // End of variables declaration//GEN-END:variables
 }

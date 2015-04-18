@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -21,6 +20,34 @@ public class SQL {
     static Connection cn = cc.Conexion();
     static ResultSet rs = null;
     static Statement st;
+    
+    
+    public static String[] llenar(String ID, String[] a, int cuantos, String From, String columna){
+        String[] model = new String[cuantos];
+        try {
+            st = cn.createStatement();
+            String sql = "SELECT ";
+            for(int i = 0; i < cuantos; i++){
+                if(i == 0){
+                    sql = sql+a[i];
+                }else{
+                    sql = sql +","+a[i];
+                }
+            }
+            sql = sql + " FROM " + From + " WHERE `"+columna+"` ='"+ID+"'";
+            rs = st.executeQuery(sql);
+            while (rs.next()) {
+               for(int i = 0; i<cuantos; i++){
+                    System.out.println(rs.getString(a[i]));
+                    model[i] = rs.getString(a[i]);
+                }
+            }
+                    
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return model;
+    }
     
     public static DefaultTableModel getTables(String sql, String table, String Orderby,int colums, String[] columnas){
         DefaultTableModel modelo = new DefaultTableModel(){
