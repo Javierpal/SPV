@@ -22,15 +22,18 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
     Download dw;
     boolean downloading = false;
     
+    Dimension ss = Toolkit.getDefaultToolkit ().getScreenSize ();
+    
     public MFrame() {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(SPV.class.getResource("Jumbo.png")));
         this.setTitle("Sistema Punto de Venta");
         this.setLocationRelativeTo(null);
+        this.pack();
         this.setSize(new Dimension(800,600));
         this.setResizable(true);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
         initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         init();
     }
     final void init(){
@@ -38,6 +41,9 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         thread.start();
         Actualizando.setVisible(false);
         progress.setVisible(false);
+        porsentaje.setVisible(false);
+        conectadoa.setText("Conectado a: "+ReadFiles.GetBD());
+        servera.setText("Server: "+ReadFiles.GetServer());
     }
 
     public void CambiarCarta(String nwCard){
@@ -56,8 +62,10 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
             downloading = true;
             dw = new Download("http://shiftsoft.esy.es/SPV.jar");
             ReadFiles.WriteLCVer(LCVersion[1]);
+        }else{
+            noUpdate.setVisible(true);
+            noUpdate.setText("No hay Actualizacion");
         }
-        
     }
     
     /**
@@ -73,9 +81,14 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        servera = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        conectadoa = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         Actualizando = new javax.swing.JLabel();
         progress = new javax.swing.JProgressBar();
+        porsentaje = new javax.swing.JLabel();
+        noUpdate = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         Archivo = new javax.swing.JMenu();
         Guardar = new javax.swing.JMenuItem();
@@ -94,7 +107,8 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         Salir = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBounds(ss.width / 2 - getWidth() / 2,ss.height / 2 - getHeight() / 2,getWidth(), getHeight());
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(800, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -127,23 +141,34 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         jPanel3.setPreferredSize(new java.awt.Dimension(661, 30));
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 355, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 24, Short.MAX_VALUE)
-        );
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jPanel4.setMaximumSize(new java.awt.Dimension(345549, 23));
+        jPanel4.setMinimumSize(new java.awt.Dimension(43, 23));
+        jPanel4.setPreferredSize(new java.awt.Dimension(0, 23));
+        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
+
+        servera.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        servera.setText("Server: ");
+        jPanel4.add(servera);
 
         jPanel3.add(jPanel4);
 
+        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jPanel6.setMaximumSize(new java.awt.Dimension(345549, 23));
+        jPanel6.setMinimumSize(new java.awt.Dimension(72, 23));
+        jPanel6.setPreferredSize(new java.awt.Dimension(34, 23));
+        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
+
+        conectadoa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        conectadoa.setText("Conectado a: ");
+        jPanel6.add(conectadoa);
+
+        jPanel3.add(jPanel6);
+
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jPanel5.setMaximumSize(new java.awt.Dimension(300, 30));
-        jPanel5.setMinimumSize(new java.awt.Dimension(300, 30));
-        jPanel5.setPreferredSize(new java.awt.Dimension(300, 30));
+        jPanel5.setMaximumSize(new java.awt.Dimension(330, 30));
+        jPanel5.setMinimumSize(new java.awt.Dimension(330, 30));
+        jPanel5.setPreferredSize(new java.awt.Dimension(330, 30));
         jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.LINE_AXIS));
 
         Actualizando.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -153,6 +178,18 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         Actualizando.setPreferredSize(new java.awt.Dimension(79, 20));
         jPanel5.add(Actualizando);
         jPanel5.add(progress);
+
+        porsentaje.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        porsentaje.setMaximumSize(new java.awt.Dimension(40, 14));
+        porsentaje.setMinimumSize(new java.awt.Dimension(40, 14));
+        porsentaje.setPreferredSize(new java.awt.Dimension(40, 14));
+        jPanel5.add(porsentaje);
+
+        noUpdate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        noUpdate.setMaximumSize(new java.awt.Dimension(54654554, 23));
+        noUpdate.setMinimumSize(new java.awt.Dimension(0, 23));
+        noUpdate.setPreferredSize(new java.awt.Dimension(0, 23));
+        jPanel5.add(noUpdate);
 
         jPanel3.add(jPanel5);
 
@@ -274,6 +311,7 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
     private javax.swing.JMenuItem Tabla;
     private javax.swing.JMenu VAdicional;
     private javax.swing.JMenu Ventanas;
+    private javax.swing.JLabel conectadoa;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
@@ -283,7 +321,11 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel noUpdate;
+    private javax.swing.JLabel porsentaje;
     private javax.swing.JProgressBar progress;
+    private javax.swing.JLabel servera;
     private javax.swing.JMenuItem spv;
     // End of variables declaration//GEN-END:variables
 
@@ -293,9 +335,11 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         if(downloading){
             while((int)dw.getProgress() != 100){
             progress.setValue((int)dw.getProgress());
+            porsentaje.setText((int)dw.getProgress()+"%");
             }
         }
         Actualizando.setText("Completado");
+        porsentaje.setText("100%");
         progress.setVisible(false);
     }
 }

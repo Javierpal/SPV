@@ -30,7 +30,7 @@ public class SPV extends JFrame{
         dispose();
     }
     
-    public void Content(boolean cont){
+    public final void Content(boolean cont){
         
         if(cont){
             this.setContentPane(new MainScreen(this));

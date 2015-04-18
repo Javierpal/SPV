@@ -5,6 +5,10 @@
  */
 package Ventanas;
 
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import spv.SPV;
+
 /**
  *
  * @author Javier
@@ -27,6 +31,20 @@ public class Venta extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Productopane = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel19 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        jTextField7 = new javax.swing.JTextField();
+        jTextField8 = new javax.swing.JTextField();
+        jPanel20 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
@@ -61,6 +79,81 @@ public class Venta extends javax.swing.JPanel {
         jTextField6 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
+
+        Productopane.setLayout(new javax.swing.BoxLayout(Productopane, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jPanel18.setMaximumSize(new java.awt.Dimension(32767, 23));
+        jPanel18.setMinimumSize(new java.awt.Dimension(0, 23));
+        jPanel18.setPreferredSize(new java.awt.Dimension(637, 23));
+        jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel11.setMaximumSize(new java.awt.Dimension(73, 32767));
+        jPanel11.setMinimumSize(new java.awt.Dimension(73, 0));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 73, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 23, Short.MAX_VALUE)
+        );
+
+        jPanel18.add(jPanel11);
+
+        jPanel12.setMaximumSize(new java.awt.Dimension(65465, 14));
+        jPanel12.setMinimumSize(new java.awt.Dimension(60, 14));
+        jPanel12.setPreferredSize(new java.awt.Dimension(320, 14));
+        jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel10.setText("Codigo");
+        jPanel12.add(jLabel10);
+
+        jPanel18.add(jPanel12);
+
+        jPanel13.setMaximumSize(new java.awt.Dimension(4545, 14));
+        jPanel13.setPreferredSize(new java.awt.Dimension(318, 14));
+        jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel11.setText("Nombre");
+        jPanel13.add(jLabel11);
+
+        jPanel18.add(jPanel13);
+
+        Productopane.add(jPanel18);
+
+        jPanel19.setMaximumSize(new java.awt.Dimension(32767, 23));
+        jPanel19.setMinimumSize(new java.awt.Dimension(0, 23));
+        jPanel19.setPreferredSize(new java.awt.Dimension(637, 23));
+        jPanel19.setLayout(new javax.swing.BoxLayout(jPanel19, javax.swing.BoxLayout.LINE_AXIS));
+
+        jButton4.setText("Producto");
+        jPanel19.add(jButton4);
+        jPanel19.add(jTextField7);
+        jPanel19.add(jTextField8);
+
+        Productopane.add(jPanel19);
+
+        jPanel20.setLayout(new javax.swing.BoxLayout(jPanel20, javax.swing.BoxLayout.LINE_AXIS));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        jPanel20.add(jScrollPane2);
+
+        Productopane.add(jPanel20);
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -204,6 +297,11 @@ public class Venta extends javax.swing.JPanel {
         jPanel3.add(jLabel3);
 
         jButton3.setText("...");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton3);
 
         jTextField1.setMaximumSize(new java.awt.Dimension(150, 2147483647));
@@ -254,16 +352,32 @@ public class Venta extends javax.swing.JPanel {
         add(jPanel6);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        JFrame producto = new JFrame();
+        producto.setContentPane(Productopane);
+        producto.setIconImage(Toolkit.getDefaultToolkit().getImage(SPV.class.getResource("Jumbo.png")));
+        producto.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        producto.setSize(600,450);
+        producto.setResizable(true);
+        producto.setVisible(true);
+        producto.setLocationRelativeTo(null);
+        producto.setTitle("Busqueda de Producto");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Buscar;
     private javax.swing.JLabel Cliente;
+    private javax.swing.JPanel Productopane;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -274,7 +388,13 @@ public class Venta extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -283,12 +403,16 @@ public class Venta extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables
 }
