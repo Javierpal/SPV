@@ -18,7 +18,7 @@ public class Conexion {
     public Connection Conexion(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            //conectar = DriverManager.getConnection("jdbc:mysql://192.168.1.1:3306/inventarios", "Racktor", "root");
+            //Ejemplo: conectar = DriverManager.getConnection("jdbc:mysql://192.168.1.1:3306/inventarios", "Racktor", "root");
             conectar = DriverManager.getConnection("jdbc:mysql://"+ReadFiles.GetServer()+"/"+ReadFiles.GetBD(), ReadFiles.GetBDUsuario(), ReadFiles.GetBDPass());
             System.out.println(conectar);
                 Conexion = 2;

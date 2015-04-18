@@ -5,6 +5,7 @@
  */
 package Ventanas;
 
+import Conexion.SQL;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import spv.SPV;
@@ -15,11 +16,45 @@ import spv.SPV;
  */
 public class Venta extends javax.swing.JPanel {
 
-    /**
-     * Creates new form MainPanel
-     */
+    
+    JFrame producto;
+    
     public Venta() {
         initComponents();
+    }
+    
+    public void fillTable(String sql, String table, String FSentense){
+        String[] columnas = { "ID Producto","Nombre","Descripcion","Precio","Precio Venta","U.M.","Cantidad","Marca","Proveedor","Ubicacion","Minimo","Maximo","Fecha Cotizacion"};
+        if(sql.equals("") && table.equals("") && FSentense.equals("")){
+            sql = "SELECT * FROM";
+            table = "`productos`";
+            FSentense = "ORDER BY Ubicacion ASC";
+        }
+        TablaPro.setModel(SQL.getTables(sql, table, FSentense, 13, columnas));
+    }
+    
+    public void Busqueda(boolean nom){
+        String a = IDpro.getText();
+        String b = Nombrepro.getText();
+        String c = "";
+        String what = "";
+//        if(a.equals("")){
+//            c = b;
+//            what = "nombre";
+//        }else if(b.equals("")){
+//            c = a;
+//            what = "ID_Producto";
+//        }
+
+        if(nom){
+            c = a;
+            what = "ID_Producto";
+        }else{
+            c = b;
+            what = "nombre";
+        }
+        
+        fillTable("SELECT * FROM", "`productos`", "WHERE `"+what+"` LIKE '%"+c+"%' ORDER BY Ubicacion ASC");
     }
 
     /**
@@ -40,11 +75,12 @@ public class Venta extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        IDpro = new javax.swing.JTextField();
+        Nombrepro = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
         jPanel20 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        TablaPro = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
@@ -129,16 +165,35 @@ public class Venta extends javax.swing.JPanel {
         jPanel19.setPreferredSize(new java.awt.Dimension(637, 23));
         jPanel19.setLayout(new javax.swing.BoxLayout(jPanel19, javax.swing.BoxLayout.LINE_AXIS));
 
-        jButton4.setText("Producto");
+        jButton4.setText("Buscar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel19.add(jButton4);
-        jPanel19.add(jTextField7);
-        jPanel19.add(jTextField8);
+        jPanel19.add(IDpro);
+
+        Nombrepro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                NombreproKeyReleased(evt);
+            }
+        });
+        jPanel19.add(Nombrepro);
+
+        jButton5.setText("Quitar Filtro");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel19.add(jButton5);
 
         Productopane.add(jPanel19);
 
         jPanel20.setLayout(new javax.swing.BoxLayout(jPanel20, javax.swing.BoxLayout.LINE_AXIS));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        TablaPro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -149,7 +204,8 @@ public class Venta extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        TablaPro.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane2.setViewportView(TablaPro);
 
         jPanel20.add(jScrollPane2);
 
@@ -353,7 +409,7 @@ public class Venta extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        JFrame producto = new JFrame();
+        producto = new JFrame();
         producto.setContentPane(Productopane);
         producto.setIconImage(Toolkit.getDefaultToolkit().getImage(SPV.class.getResource("Jumbo.png")));
         producto.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -362,17 +418,35 @@ public class Venta extends javax.swing.JPanel {
         producto.setVisible(true);
         producto.setLocationRelativeTo(null);
         producto.setTitle("Busqueda de Producto");
+        TablaPro.setRowSelectionAllowed(true);
+        fillTable("","","");
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        Busqueda(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        fillTable("","","");
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void NombreproKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NombreproKeyReleased
+        Busqueda(false);
+    }//GEN-LAST:event_NombreproKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Buscar;
     private javax.swing.JLabel Cliente;
+    private javax.swing.JTextField IDpro;
+    private javax.swing.JTextField Nombrepro;
     private javax.swing.JPanel Productopane;
+    private javax.swing.JTable TablaPro;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -405,14 +479,11 @@ public class Venta extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables
 }

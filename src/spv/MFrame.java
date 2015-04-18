@@ -59,6 +59,7 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         if(ReadFiles.GetLCVersion() < Float.parseFloat(LCVersion[1])){
             Actualizando.setVisible(true);
             progress.setVisible(true);
+            porsentaje.setVisible(true);
             downloading = true;
             dw = new Download("http://shiftsoft.esy.es/SPV.jar");
             ReadFiles.WriteLCVer(LCVersion[1]);
