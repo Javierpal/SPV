@@ -33,7 +33,6 @@ public class Venta extends javax.swing.JPanel {
     
     public void rellenar(String ID){
         String[] datos = {"nombre","Precio"};
-        System.out.println(datos.length);
         String a[] = SQL.llenar(ID, datos, datos.length, "productos", "ID_Producto");
         nombre.setText(a[0]);
         precio.setText(a[1]);
@@ -168,9 +167,9 @@ public class Venta extends javax.swing.JPanel {
 
         Productopane.add(jPanel18);
 
-        jPanel19.setMaximumSize(new java.awt.Dimension(32767, 23));
-        jPanel19.setMinimumSize(new java.awt.Dimension(0, 23));
-        jPanel19.setPreferredSize(new java.awt.Dimension(637, 23));
+        jPanel19.setMaximumSize(new java.awt.Dimension(32767, 30));
+        jPanel19.setMinimumSize(new java.awt.Dimension(0, 30));
+        jPanel19.setPreferredSize(new java.awt.Dimension(637, 30));
         jPanel19.setLayout(new javax.swing.BoxLayout(jPanel19, javax.swing.BoxLayout.LINE_AXIS));
 
         jButton4.setText("Buscar");
@@ -180,8 +179,15 @@ public class Venta extends javax.swing.JPanel {
             }
         });
         jPanel19.add(jButton4);
+
+        IDpro.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        IDpro.setMinimumSize(new java.awt.Dimension(6, 30));
+        IDpro.setPreferredSize(new java.awt.Dimension(6, 30));
         jPanel19.add(IDpro);
 
+        Nombrepro.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        Nombrepro.setMinimumSize(new java.awt.Dimension(6, 30));
+        Nombrepro.setPreferredSize(new java.awt.Dimension(6, 30));
         Nombrepro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 NombreproKeyReleased(evt);
@@ -253,9 +259,9 @@ public class Venta extends javax.swing.JPanel {
         Cliente.setText("Cliente");
         jPanel8.add(Cliente);
 
-        Buscar.setMaximumSize(new java.awt.Dimension(2147483647, 25));
-        Buscar.setMinimumSize(new java.awt.Dimension(6, 25));
-        Buscar.setPreferredSize(new java.awt.Dimension(300, 25));
+        Buscar.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        Buscar.setMinimumSize(new java.awt.Dimension(6, 30));
+        Buscar.setPreferredSize(new java.awt.Dimension(300, 30));
         jPanel8.add(Buscar);
 
         jButton2.setText("Buscar");
@@ -358,8 +364,9 @@ public class Venta extends javax.swing.JPanel {
 
         jPanel6.add(jPanel7);
 
-        jPanel3.setMaximumSize(new java.awt.Dimension(214748364, 23));
-        jPanel3.setPreferredSize(new java.awt.Dimension(812, 23));
+        jPanel3.setMaximumSize(new java.awt.Dimension(214748364, 27));
+        jPanel3.setMinimumSize(new java.awt.Dimension(575, 27));
+        jPanel3.setPreferredSize(new java.awt.Dimension(812, 27));
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel3.setText("Producto");

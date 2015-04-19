@@ -38,7 +38,6 @@ public class SQL {
             rs = st.executeQuery(sql);
             while (rs.next()) {
                for(int i = 0; i<cuantos; i++){
-                    System.out.println(rs.getString(a[i]));
                     model[i] = rs.getString(a[i]);
                 }
             }
