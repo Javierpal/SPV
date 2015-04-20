@@ -20,7 +20,7 @@ public class SPV extends JFrame{
     public SPV(){
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(SPV.class.getResource("Jumbo.png")));
         this.setTitle("Sistema de Punto de Venta");
-        this.setSize(new Dimension (333, 248));
+        this.setSize(new Dimension (370, 248));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         Content(true);

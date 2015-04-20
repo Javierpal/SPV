@@ -6,6 +6,7 @@
 package Conexion;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,6 +22,22 @@ public class SQL {
     static ResultSet rs = null;
     static Statement st;
     
+    public static String[] getDatabases(){
+        String a[] = new String[10];
+        Connection cn2 = Conexion.getConection();
+        try {
+            st = cn2.createStatement();
+            rs = st.executeQuery("show databases;");
+            int i=0;
+            while (rs.next()) {
+               a[i] = rs.getString(1);
+               i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return a;
+    }
     
     public static String[] llenar(String ID, String[] a, int cuantos, String From, String columna){
         String[] model = new String[cuantos];
