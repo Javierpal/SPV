@@ -20,7 +20,7 @@ public class Conexion {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             //Ejemplo: conectar = DriverManager.getConnection("jdbc:mysql://192.168.1.1:3306/inventarios", "Racktor", "root");
-            conectar = DriverManager.getConnection("jdbc:mysql://"+ReadFiles.GetServer()+"/"+ReadFiles.GetBD(), ReadFiles.GetBDUsuario(), ReadFiles.GetBDPass());
+            conectar = DriverManager.getConnection("jdbc:mysql://"+ReadFiles.GetServer()+":3306/"+ReadFiles.GetBD(), ReadFiles.GetBDUsuario(), ReadFiles.GetBDPass());
             System.out.println(conectar);
                 Conexion = 2;
         }catch (Exception e){
@@ -37,7 +37,7 @@ public class Conexion {
         Connection cn = null;
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://"+ReadFiles.GetServer(), ReadFiles.GetBDUsuario(), ReadFiles.GetBDPass());
+            cn = DriverManager.getConnection("jdbc:mysql://"+ReadFiles.GetServer()+":3306", ReadFiles.GetBDUsuario(), ReadFiles.GetBDPass());
                 Conexion2 = 2;
         }catch (Exception e){
             System.out.println(e.getMessage());
