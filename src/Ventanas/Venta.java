@@ -6,8 +6,10 @@
 package Ventanas;
 
 import Conexion.SQL;
+import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 import spv.SPV;
 
 /**
@@ -18,9 +20,52 @@ public class Venta extends javax.swing.JPanel {
 
     
     JFrame producto;
+    DefaultTableModel t;
     
     public Venta() {
         initComponents();
+        init();
+    }
+    
+    final void init(){
+        tabla(null);
+        CBuscar.setText("Introdusca el Nombre del Cliente");
+        CBuscar.setForeground(new Color(160,160,160));
+    }
+    
+    private void tabla(String a[]){
+        String cabecera[]={"Partida","Nombre","Cantidad","Precio","Descuento","IVA","Importe"};
+        String datos[][] = {};
+        
+        t = new DefaultTableModel(datos,cabecera);
+
+        TablaProductos.setModel(t);
+    }
+    
+    void agregar(){
+        String ba = String.valueOf(TablaProductos.getRowCount()+1);
+        String datos[]={ba,nombre.getText(), Cantidad.getText(),Precio.getText(),Descuento.getText(), IVA.getText(), String.valueOf(importe())};
+        t.addRow(datos);
+        Limpiar();
+    }
+    
+    void Limpiar(){
+        Codigo.setText("");
+        nombre.setText("");
+        Cantidad.setText("");
+        Precio.setText("");
+        Descuento.setText("");
+        IVA.setText("");
+    }
+    
+    float importe(){
+        Float iva = Float.parseFloat(IVA.getText());
+        Float precio = Float.parseFloat(Precio.getText());
+        Float cantidad = Float.parseFloat(Cantidad.getText());
+        Float descuento = Float.parseFloat(Descuento.getText());
+        
+        float r = ((((iva/100) * precio) + precio)-((descuento/100)*precio))*cantidad;
+        return r;
     }
     
     public void traer(){
@@ -35,7 +80,8 @@ public class Venta extends javax.swing.JPanel {
         String[] datos = {"nombre","Precio"};
         String a[] = SQL.llenar(ID, datos, datos.length, "productos", "ID_Producto");
         nombre.setText(a[0]);
-        precio.setText(a[1]);
+        Precio.setText(a[1]);
+        Cantidad.setText("1");
     }
     
     public void fillTable(String sql, String table, String FSentense){
@@ -45,7 +91,7 @@ public class Venta extends javax.swing.JPanel {
             table = "`productos`";
             FSentense = "ORDER BY Ubicacion ASC";
         }
-        TablaPro.setModel(SQL.getTables(sql, table, FSentense, 13, columnas));
+        TablaPro.setModel(SQL.getTables(sql, table, FSentense, columnas.length, columnas));
     }
     
     public void Busqueda(boolean nom){
@@ -89,20 +135,18 @@ public class Venta extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaPro = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
         jPanel8 = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox();
-        Cliente = new javax.swing.JLabel();
-        Buscar = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        VentaTipo = new javax.swing.JComboBox();
+        LabelCliente = new javax.swing.JLabel();
+        CBuscar = new javax.swing.JTextField();
+        CBoton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaProductos = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -116,10 +160,10 @@ public class Venta extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         Codigo = new javax.swing.JTextField();
         nombre = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        precio = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        Cantidad = new javax.swing.JTextField();
+        Precio = new javax.swing.JTextField();
+        Descuento = new javax.swing.JTextField();
+        IVA = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
 
@@ -232,40 +276,43 @@ public class Venta extends javax.swing.JPanel {
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jPanel4.setMaximumSize(new java.awt.Dimension(32767, 100));
-        jPanel4.setMinimumSize(new java.awt.Dimension(766, 100));
-        jPanel4.setPreferredSize(new java.awt.Dimension(500, 100));
+        jPanel4.setMaximumSize(new java.awt.Dimension(32767, 70));
+        jPanel4.setMinimumSize(new java.awt.Dimension(766, 70));
+        jPanel4.setPreferredSize(new java.awt.Dimension(500, 70));
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.PAGE_AXIS));
-
-        jPanel10.setMaximumSize(new java.awt.Dimension(32767, 25));
-        jPanel10.setMinimumSize(new java.awt.Dimension(56, 25));
-        jPanel10.setPreferredSize(new java.awt.Dimension(812, 25));
-        jPanel10.setLayout(new javax.swing.BoxLayout(jPanel10, javax.swing.BoxLayout.LINE_AXIS));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Captura por Cliente", "Captura Continuada" }));
-        jPanel10.add(jComboBox1);
-
-        jPanel4.add(jPanel10);
 
         jPanel8.setMaximumSize(new java.awt.Dimension(32767, 30));
         jPanel8.setMinimumSize(new java.awt.Dimension(373, 30));
         jPanel8.setPreferredSize(new java.awt.Dimension(820, 30));
         jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.LINE_AXIS));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cliente Recurrente", "Cliente Ocacional" }));
-        jPanel8.add(jComboBox2);
+        VentaTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Captura por Cliente", "Captura Continuada" }));
+        VentaTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                VentaTipoItemStateChanged(evt);
+            }
+        });
+        jPanel8.add(VentaTipo);
 
-        Cliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        Cliente.setText("Cliente");
-        jPanel8.add(Cliente);
+        LabelCliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        LabelCliente.setText("Cliente");
+        jPanel8.add(LabelCliente);
 
-        Buscar.setMaximumSize(new java.awt.Dimension(2147483647, 30));
-        Buscar.setMinimumSize(new java.awt.Dimension(6, 30));
-        Buscar.setPreferredSize(new java.awt.Dimension(300, 30));
-        jPanel8.add(Buscar);
+        CBuscar.setMaximumSize(new java.awt.Dimension(2147483647, 30));
+        CBuscar.setMinimumSize(new java.awt.Dimension(6, 30));
+        CBuscar.setPreferredSize(new java.awt.Dimension(300, 30));
+        CBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                CBuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                CBuscarFocusLost(evt);
+            }
+        });
+        jPanel8.add(CBuscar);
 
-        jButton2.setText("Buscar");
-        jPanel8.add(jButton2);
+        CBoton.setText("Buscar");
+        jPanel8.add(CBoton);
 
         jPanel4.add(jPanel8);
 
@@ -274,13 +321,13 @@ public class Venta extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(766, 40));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel1.setMaximumSize(new java.awt.Dimension(350, 20));
         jLabel1.setMinimumSize(new java.awt.Dimension(250, 20));
         jLabel1.setPreferredSize(new java.awt.Dimension(250, 20));
         jPanel1.add(jLabel1);
 
-        jLabel2.setText("jLabel1");
+        jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel2.setMaximumSize(new java.awt.Dimension(350, 20));
         jLabel2.setMinimumSize(new java.awt.Dimension(150, 20));
         jLabel2.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -297,7 +344,7 @@ public class Venta extends javax.swing.JPanel {
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -308,7 +355,7 @@ public class Venta extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TablaProductos);
 
         jPanel2.add(jScrollPane1);
 
@@ -386,28 +433,33 @@ public class Venta extends javax.swing.JPanel {
         jPanel3.add(Codigo);
         jPanel3.add(nombre);
 
-        jTextField3.setMaximumSize(new java.awt.Dimension(65, 2147483647));
-        jTextField3.setMinimumSize(new java.awt.Dimension(65, 20));
-        jTextField3.setName(""); // NOI18N
-        jTextField3.setPreferredSize(new java.awt.Dimension(65, 20));
-        jPanel3.add(jTextField3);
+        Cantidad.setMaximumSize(new java.awt.Dimension(65, 2147483647));
+        Cantidad.setMinimumSize(new java.awt.Dimension(65, 20));
+        Cantidad.setName(""); // NOI18N
+        Cantidad.setPreferredSize(new java.awt.Dimension(65, 20));
+        jPanel3.add(Cantidad);
 
-        precio.setMaximumSize(new java.awt.Dimension(65, 2147483647));
-        precio.setMinimumSize(new java.awt.Dimension(65, 20));
-        precio.setPreferredSize(new java.awt.Dimension(65, 20));
-        jPanel3.add(precio);
+        Precio.setMaximumSize(new java.awt.Dimension(65, 2147483647));
+        Precio.setMinimumSize(new java.awt.Dimension(65, 20));
+        Precio.setPreferredSize(new java.awt.Dimension(65, 20));
+        jPanel3.add(Precio);
 
-        jTextField5.setMaximumSize(new java.awt.Dimension(65, 2147483647));
-        jTextField5.setMinimumSize(new java.awt.Dimension(65, 20));
-        jTextField5.setPreferredSize(new java.awt.Dimension(65, 20));
-        jPanel3.add(jTextField5);
+        Descuento.setMaximumSize(new java.awt.Dimension(65, 2147483647));
+        Descuento.setMinimumSize(new java.awt.Dimension(65, 20));
+        Descuento.setPreferredSize(new java.awt.Dimension(65, 20));
+        jPanel3.add(Descuento);
 
-        jTextField6.setMaximumSize(new java.awt.Dimension(65, 2147483647));
-        jTextField6.setMinimumSize(new java.awt.Dimension(65, 20));
-        jTextField6.setPreferredSize(new java.awt.Dimension(65, 20));
-        jPanel3.add(jTextField6);
+        IVA.setMaximumSize(new java.awt.Dimension(65, 2147483647));
+        IVA.setMinimumSize(new java.awt.Dimension(65, 20));
+        IVA.setPreferredSize(new java.awt.Dimension(65, 20));
+        jPanel3.add(IVA);
 
         jButton1.setText("Agregar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton1);
 
         jPanel6.add(jPanel3);
@@ -460,22 +512,55 @@ public class Venta extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_TablaProMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        agregar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void VentaTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_VentaTipoItemStateChanged
+        if(VentaTipo.getSelectedItem().toString().equals("Captura por Cliente")){
+            CBuscar.setEnabled(true);
+            CBoton.setEnabled(true);
+            CBuscar.setText("Introdusca el Nombre del Cliente");
+            CBuscar.setForeground(new Color(160,160,160));
+        }else if (VentaTipo.getSelectedItem().toString().equals("Captura Continuada")){
+            CBuscar.setEnabled(false);
+            CBoton.setEnabled(false);
+            CBuscar.setText("");
+        }
+    }//GEN-LAST:event_VentaTipoItemStateChanged
+
+    private void CBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CBuscarFocusGained
+        CBuscar.setText("");
+        CBuscar.setForeground(new Color(0,0,0));
+    }//GEN-LAST:event_CBuscarFocusGained
+
+    private void CBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CBuscarFocusLost
+        if(CBuscar.getText().equals("") || CBuscar.getText().equals(" ") || CBuscar.getText()==(null)){
+        CBuscar.setText("Introdusca el Nombre del Cliente");
+        CBuscar.setForeground(new Color(160,160,160));
+        }
+    }//GEN-LAST:event_CBuscarFocusLost
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Buscar;
-    private javax.swing.JLabel Cliente;
+    private javax.swing.JButton CBoton;
+    private javax.swing.JTextField CBuscar;
+    private javax.swing.JTextField Cantidad;
     private javax.swing.JTextField Codigo;
+    private javax.swing.JTextField Descuento;
     private javax.swing.JTextField IDpro;
+    private javax.swing.JTextField IVA;
+    private javax.swing.JLabel LabelCliente;
     private javax.swing.JTextField Nombrepro;
+    private javax.swing.JTextField Precio;
     private javax.swing.JPanel Productopane;
     private javax.swing.JTable TablaPro;
+    private javax.swing.JTable TablaProductos;
+    private javax.swing.JComboBox VentaTipo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -488,7 +573,6 @@ public class Venta extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -505,11 +589,6 @@ public class Venta extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField nombre;
-    private javax.swing.JTextField precio;
     // End of variables declaration//GEN-END:variables
 }
