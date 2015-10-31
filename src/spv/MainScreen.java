@@ -6,7 +6,8 @@
 package spv;
 
 import Conexion.Conexion;
-import com.sun.glass.events.KeyEvent;
+import Ventanas.Crear;
+import java.awt.event.KeyEvent;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -110,6 +111,7 @@ public class MainScreen extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         Notificar = new javax.swing.JLabel();
         intento = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(378, 206));
         setMinimumSize(new java.awt.Dimension(378, 206));
@@ -155,6 +157,13 @@ public class MainScreen extends javax.swing.JPanel {
 
         intento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        jButton3.setText("Crear");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,10 +180,10 @@ public class MainScreen extends javax.swing.JPanel {
                             .addComponent(Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(jButton1)
-                        .addGap(37, 37, 37)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(61, 61, 61)
+                        .addComponent(jButton1)))
                 .addGap(40, 40, 40)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
@@ -202,7 +211,9 @@ public class MainScreen extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(intento, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -233,6 +244,15 @@ public class MainScreen extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_ContraseñaKeyReleased
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Crear c = new Crear();
+        c.setSize(800, 600);
+        c.setTitle("Herramienta de Creado de Base de Datos");
+        c.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        c.setLocationRelativeTo(null);
+        c.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField Contraseña;
@@ -241,6 +261,7 @@ public class MainScreen extends javax.swing.JPanel {
     private javax.swing.JLabel intento;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

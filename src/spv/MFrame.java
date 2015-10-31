@@ -29,7 +29,7 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         this.setTitle("Sistema Punto de Venta");
         this.setLocationRelativeTo(null);
         this.pack();
-        this.setSize(new Dimension(800,600));
+        this.setSize(new Dimension(980,600));
         this.setResizable(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
@@ -53,15 +53,15 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
     
     public void ActualizarLC(){
         
-        String a[] = ReadFiles.readFromWeb("http://shiftsoft.esy.es/Update.txt",2);
-        String LCVersion[] = a[1].split(":");
+        String a[] = ReadFiles.readFromWeb("http://shiftsoftmx.com/Productos/Updates/SPV/Update.txt",2);
+        String LCVersion[] = a[0].split(":");
         
         if(ReadFiles.GetLCVersion() < Float.parseFloat(LCVersion[1])){
             Actualizando.setVisible(true);
             progress.setVisible(true);
             porsentaje.setVisible(true);
             downloading = true;
-            dw = new Download("http://shiftsoft.esy.es/SPV.jar");
+            dw = new Download("http://shiftsoftmx.com/Productos/Updates/SPV/SPV.jar");
             ReadFiles.WriteLCVer(LCVersion[1]);
         }else{
             noUpdate.setVisible(true);
@@ -111,11 +111,13 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(ss.width / 2 - getWidth() / 2,ss.height / 2 - getHeight() / 2,getWidth(), getHeight());
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(980, 600));
+        setPreferredSize(new java.awt.Dimension(980, 600));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel1.setLayout(new java.awt.CardLayout());
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(1050, 600));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
