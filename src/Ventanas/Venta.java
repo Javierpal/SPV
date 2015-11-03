@@ -6,7 +6,9 @@
 package Ventanas;
 
 import Conexion.SQL;
+import Conexion.XMLWriter;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
@@ -34,21 +36,28 @@ public class Venta extends javax.swing.JPanel {
         CBuscar.setText("Introdusca el Nombre del Cliente");
         CBuscar.setForeground(new Color(160,160,160));
         textTotal.setEnabled(false);
+        SubImporte.setEnabled(false);
+        SubTotal.setEnabled(false);
     }
     
     private void tabla(String a[]){
         String cabecera[]={"Clave","Articulo","Cantidad","Precio","Descuento","IVA","Importe", "Total"};
         String datos[][] = {};
         
-        t = new DefaultTableModel(datos,cabecera);
-
+        t = new DefaultTableModel(datos,cabecera){
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        TablaProductos.getTableHeader().setReorderingAllowed(false);
         TablaProductos.setModel(t);
     }
     
     boolean ComprobarValoresNoVacios(){
-        if(!nombre.getText().equals("") &&  !Cantidad.getText().equals("") && !Precio.getText().equals("") && !Descuento.getText().equals("") && !IVA.getText().equals("") && !SubImporte.getText().equals("") && !SubTotal.getText().equals("")){
-            if(!nombre.getText().equals(" ") &&  !Cantidad.getText().equals(" ") && !Precio.getText().equals(" ") && !Descuento.getText().equals(" ") && !IVA.getText().equals(" ") && !SubImporte.getText().equals(" ") && !SubTotal.getText().equals(" ")){
-                if(nombre.getText() != null &&  Cantidad.getText() != null && Precio.getText() != null && Descuento.getText() != null && IVA.getText() != null && SubImporte != null && SubTotal != null){
+        if(!Codigo.getText().equals("") && !nombre.getText().equals("") &&  !Cantidad.getText().equals("") && !Precio.getText().equals("") && !Descuento.getText().equals("") && !IVA.getText().equals("") && !SubImporte.getText().equals("") && !SubTotal.getText().equals("")){
+            if(!Codigo.getText().equals(" ") && !nombre.getText().equals(" ") &&  !Cantidad.getText().equals(" ") && !Precio.getText().equals(" ") && !Descuento.getText().equals(" ") && !IVA.getText().equals(" ") && !SubImporte.getText().equals(" ") && !SubTotal.getText().equals(" ")){
+                if(Codigo.getText() != null && nombre.getText() != null &&  Cantidad.getText() != null && Precio.getText() != null && Descuento.getText() != null && IVA.getText() != null && SubImporte != null && SubTotal != null){
                     return true;
                 }else{
                     return false;
@@ -61,16 +70,52 @@ public class Venta extends javax.swing.JPanel {
         }
     }
     
-    void agregar(){
-        if(ComprobarValoresNoVacios()){
-            String ba = String.valueOf(TablaProductos.getRowCount()+1);
-            String datos[]={ba,nombre.getText(), Cantidad.getText(),Precio.getText(),Descuento.getText(), IVA.getText(), String.valueOf(importe())};
-            t.addRow(datos);
-            Limpiar();
+    public boolean norepeticion(){
+        String cod="";
+        int fila = TablaProductos.getRowCount();
+        if(fila != 0){
+            for(int i = fila-1; i >= 0; i--){
+                cod=TablaProductos.getValueAt(i, 0).toString();
+                if(cod.equals(Codigo.getText())){
+                    int a = Integer.parseInt(TablaProductos.getValueAt(i, 2).toString())+1;
+                    TablaProductos.setValueAt(a, i, 2);
+                    TablaProductos.setValueAt(tableImporte(i), i, 6);
+                    TablaProductos.setValueAt(tableTotal(i), i, 7);
+                    Limpiar();
+                    SumaTotal();
+                    i = 0;
+                    return true;
+                }
+            }
         }else{
-            JOptionPane.showMessageDialog(null, "Asegurese de que Todos los Campos esten llenos");
+            return false;
         }
-        
+        return false;
+    }
+    
+    void SumaTotal(){
+        Float cod = 0f;
+        int fila = TablaProductos.getRowCount();
+        if(fila != 0){
+            for(int i = fila-1; i >= 0; i--){
+                cod = cod + Float.parseFloat(TablaProductos.getValueAt(i, 7).toString());
+            }
+            textTotal.setText("$"+String.valueOf(cod));
+        }
+    }
+    
+    void agregar(){
+        if(!norepeticion()){
+            if(ComprobarValoresNoVacios()){
+                String ba = String.valueOf(TablaProductos.getRowCount()+1);
+                String datos[]={Codigo.getText(),nombre.getText(), Cantidad.getText(),Precio.getText(),Descuento.getText(), IVA.getText(), String.valueOf(importe()), String.valueOf(total())};
+                t.addRow(datos);
+                Limpiar();
+                SumaTotal();
+            }else{
+                JOptionPane.showMessageDialog(null, "Asegurese de que Todos los Campos esten llenos");
+            }
+        }
     }
     
     void Limpiar(){
@@ -84,14 +129,31 @@ public class Venta extends javax.swing.JPanel {
         SubTotal.setText("");
     }
     
+    float tableImporte(int row){
+        Float iva = Float.parseFloat(TablaProductos.getValueAt(row, 5).toString());
+        Float precio = Float.parseFloat(TablaProductos.getValueAt(row, 3).toString());
+        Float descuento = Float.parseFloat(TablaProductos.getValueAt(row, 4).toString());
+        return ((((iva/100) * precio) + precio)-((descuento/100)*precio));
+    }
+    
+    float tableTotal(int row){
+        int cantidad = Integer.parseInt(TablaProductos.getValueAt(row, 2).toString());
+        float importe = Float.parseFloat(TablaProductos.getValueAt(row, 6).toString());
+        return cantidad * importe;
+    }
+    
     float importe(){
         Float iva = Float.parseFloat(IVA.getText());
         Float precio = Float.parseFloat(Precio.getText());
-        Float cantidad = Float.parseFloat(Cantidad.getText());
         Float descuento = Float.parseFloat(Descuento.getText());
         
-        float r = ((((iva/100) * precio) + precio)-((descuento/100)*precio))*cantidad;
+        float r = ((((iva/100) * precio) + precio)-((descuento/100)*precio));
         return r;
+    }
+    
+    float total(){
+        Float cantidad = Float.parseFloat(Cantidad.getText());
+        return cantidad * importe();
     }
     
     public void traer(){
@@ -103,19 +165,40 @@ public class Venta extends javax.swing.JPanel {
     }
     
     public void rellenar(String ID){
-        String[] datos = {"nombre","Precio"};
-        String a[] = SQL.llenar(ID, datos, datos.length, "productos", "ID_Producto");
-        nombre.setText(a[0]);
-        Precio.setText(a[1]);
-        Cantidad.setText("1");
+        String[] datos = {"Articulo","Precio", "Descuento", "IVA"};
+        String a[] = SQL.llenar(ID, datos, datos.length, "productos", "Clave");
+        if(a[0] != null){
+            nombre.setText(a[0]);
+            Precio.setText(a[1]);
+            Cantidad.setText("1");
+            Descuento.setText(a[2]);
+            IVA.setText(a[3]);
+            SubImporte.setText(String.valueOf(importe()));
+            SubTotal.setText(String.valueOf(total()));
+        }else{
+            int r = JOptionPane.showConfirmDialog(null, "Producto no Encontrado, ¿Desea Agregarlo?");
+            if(r == JOptionPane.NO_OPTION || r == JOptionPane.CANCEL_OPTION){
+                Codigo.setText("");
+            }else{
+                //Nueva Ventana de Registro
+                JFrame AgregarProd = new JFrame();
+                AgregarProd.setSize(new Dimension(478,360));
+                AgregarProd.setTitle("Agregar Productos");
+                AgregarProd.setResizable(false);
+                String enviar = Codigo.getText();
+                AgregarProd.setContentPane(new AgregarProducto(enviar));
+                AgregarProd.setVisible(true);
+                AgregarProd.setLocationRelativeTo(null);
+            }
+        }
     }
     
     public void fillTable(String sql, String table, String FSentense){
-        String[] columnas = { "ID Producto","Nombre","Descripcion","Precio","Precio Venta","U.M.","Cantidad","Marca","Proveedor","Ubicacion","Minimo","Maximo","Fecha Cotizacion"};
+        String[] columnas ={"Clave", "Articulo", "Cantidad", "Precio", "Descuento", "I.V.A."}; 
         if(sql.equals("") && table.equals("") && FSentense.equals("")){
             sql = "SELECT * FROM";
             table = "`productos`";
-            FSentense = "ORDER BY Ubicacion ASC";
+            FSentense = "ORDER BY Articulo ASC";
         }
         TablaPro.setModel(SQL.getTables(sql, table, FSentense, columnas.length, columnas));
     }
@@ -127,13 +210,54 @@ public class Venta extends javax.swing.JPanel {
         String what = "";
         if(nom){
             c = a;
-            what = "ID_Producto";
+            what = "Clave";
         }else{
             c = b;
-            what = "nombre";
+            what = "Articulo";
         }
         
-        fillTable("SELECT * FROM", "`productos`", "WHERE `"+what+"` LIKE '%"+c+"%' ORDER BY Ubicacion ASC");
+        fillTable("SELECT * FROM", "`productos`", "WHERE `"+what+"` LIKE '%"+c+"%' ORDER BY Articulo ASC");
+    }
+    
+    void Venta(){
+        if(TablaProductos.getRowCount() != 0){
+            String a[][] = new String[TablaProductos.getRowCount()][4];
+            for(int i = 0; i < TablaProductos.getRowCount(); i++){
+                for(int o = 0; o < 4; o++){
+                    if(o == 0){
+                        a[i][o] = String.valueOf(TablaProductos.getValueAt(i, 1));
+                    }
+                    if(o == 1){
+                        a[i][o] = String.valueOf(TablaProductos.getValueAt(i, 2));
+                    }
+                    if(o == 2){
+                        a[i][o] = String.valueOf(TablaProductos.getValueAt(i, 6));
+                    }
+                    if(o == 3){
+                        a[i][o] = String.valueOf(TablaProductos.getValueAt(i, 7));
+                    }
+                }
+            }
+            String ultimo = SQL.Ultimo("ID", "registroventas");
+            if(ultimo != null && !ultimo.equals("") && !ultimo.equals(" ")){
+                XMLWriter w = new XMLWriter(String.valueOf(Integer.parseInt(ultimo)+1));
+                w.Write(a);
+            }else{
+                XMLWriter w = new XMLWriter("1");
+                w.Write(a);
+            }
+            String cliente = CBuscar.getText();
+            if(cliente.equals("") || cliente.equals(" ") || cliente.equals("Introdusca el Nombre del Cliente")){
+                cliente = "Sin Cliente";
+            }
+            String columnas[] = {"Cliente", "Total"};
+            String total = String.format("%.02f", Float.parseFloat(textTotal.getText().substring(1, textTotal.getText().length())));
+            String resultado[] = {cliente,total};
+            SQL.Insert("registroventas", columnas, resultado);
+        }else{
+            JOptionPane.showMessageDialog(null, "No hay Datos en la Tabla");
+        }
+        
     }
 
     /**
@@ -195,6 +319,7 @@ public class Venta extends javax.swing.JPanel {
         SubImporte = new javax.swing.JTextField();
         SubTotal = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jPanel15 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -297,7 +422,6 @@ public class Venta extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        TablaPro.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         TablaPro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaProMouseClicked(evt);
@@ -398,9 +522,9 @@ public class Venta extends javax.swing.JPanel {
 
         add(jPanel5);
 
-        jPanel6.setMaximumSize(new java.awt.Dimension(32767, 130));
-        jPanel6.setMinimumSize(new java.awt.Dimension(0, 130));
-        jPanel6.setPreferredSize(new java.awt.Dimension(812, 130));
+        jPanel6.setMaximumSize(new java.awt.Dimension(32767, 140));
+        jPanel6.setMinimumSize(new java.awt.Dimension(0, 140));
+        jPanel6.setPreferredSize(new java.awt.Dimension(812, 140));
         jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel7.setMaximumSize(new java.awt.Dimension(32767, 23));
@@ -527,6 +651,23 @@ public class Venta extends javax.swing.JPanel {
 
         jPanel6.add(jPanel3);
 
+        jPanel15.setMaximumSize(new java.awt.Dimension(32767, 10));
+        jPanel15.setMinimumSize(new java.awt.Dimension(0, 10));
+        jPanel15.setPreferredSize(new java.awt.Dimension(812, 10));
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 812, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel6.add(jPanel15);
+
         jPanel9.setMaximumSize(new java.awt.Dimension(2147483647, 80));
         jPanel9.setMinimumSize(new java.awt.Dimension(6, 80));
         jPanel9.setPreferredSize(new java.awt.Dimension(812, 80));
@@ -550,7 +691,8 @@ public class Venta extends javax.swing.JPanel {
         jLabel12.setText("TOTAL:");
         jPanel9.add(jLabel12);
 
-        textTotal.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        textTotal.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        textTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textTotal.setMaximumSize(new java.awt.Dimension(2147483647, 80));
         textTotal.setMinimumSize(new java.awt.Dimension(6, 80));
         textTotal.setPreferredSize(new java.awt.Dimension(6, 80));
@@ -574,6 +716,11 @@ public class Venta extends javax.swing.JPanel {
         bCompra.setMaximumSize(new java.awt.Dimension(90, 80));
         bCompra.setMinimumSize(new java.awt.Dimension(90, 80));
         bCompra.setPreferredSize(new java.awt.Dimension(90, 80));
+        bCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCompraActionPerformed(evt);
+            }
+        });
         jPanel9.add(bCompra);
 
         jPanel6.add(jPanel9);
@@ -645,9 +792,18 @@ public class Venta extends javax.swing.JPanel {
     private void CodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CodigoKeyReleased
         int key = evt.getKeyCode();
         if(key == KeyEvent.VK_ENTER){
-            rellenar(Codigo.getText());
+            if(!Codigo.getText().equals("") || Codigo.getText().equals(" ")){
+                rellenar(Codigo.getText());
+                agregar();
+            }else{
+                JOptionPane.showMessageDialog(null, "Escriba algun Codigo en el Campo de Codigo");
+            }
         }
     }//GEN-LAST:event_CodigoKeyReleased
+
+    private void bCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCompraActionPerformed
+        Venta();
+    }//GEN-LAST:event_bCompraActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -692,6 +848,7 @@ public class Venta extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;

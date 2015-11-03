@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Venta>
+    <Producto>
+    <nombre>Bactrim Tab.30 80mg - 400mg</nombre>
+    <cantidad>1</cantidad>
+    <precio>174.72</precio>
+    <total>174.72</total>
+    </Producto>
+    <Producto>
+    <nombre>Sinergix Cap 25mg - 10mg </nombre>
+    <cantidad>2</cantidad>
+    <precio>499.0</precio>
+    <total>998.0</total>
+    </Producto>
+</Venta>

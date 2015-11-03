@@ -10,6 +10,7 @@ import Ventanas.Venta;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import Conexion.Download;
+import Ventanas.Registros;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
@@ -53,7 +54,7 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
     
     public void ActualizarLC(){
         
-        String a[] = ReadFiles.readFromWeb("http://shiftsoftmx.com/Productos/Updates/SPV/Update.txt",2);
+        String a[] = ReadFiles.readFromWeb("http://shiftsoftmx.com/Productos/Updates/SPV/Update.txt",1);
         String LCVersion[] = a[0].split(":");
         
         if(ReadFiles.GetLCVersion() < Float.parseFloat(LCVersion[1])){
@@ -91,17 +92,12 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         porsentaje = new javax.swing.JLabel();
         noUpdate = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        Archivo = new javax.swing.JMenu();
-        Guardar = new javax.swing.JMenuItem();
-        Exportar = new javax.swing.JMenuItem();
         Ventanas = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         VAdicional = new javax.swing.JMenu();
         PV = new javax.swing.JMenuItem();
-        Crear = new javax.swing.JMenu();
-        Tabla = new javax.swing.JMenuItem();
-        BD = new javax.swing.JMenuItem();
         Acerca = new javax.swing.JMenu();
         spv = new javax.swing.JMenuItem();
         Shift = new javax.swing.JMenuItem();
@@ -135,6 +131,7 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         jPanel1.add(jPanel2, "Card1");
         jPanel1.add(new Venta(), "Card2");
         jPanel1.add(new Recepcion(), "Card3");
+        jPanel1.add(new Registros(), "Card4");
 
         getContentPane().add(jPanel1);
 
@@ -198,16 +195,6 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
 
         getContentPane().add(jPanel3);
 
-        Archivo.setText("Archivo");
-
-        Guardar.setText("Guardar");
-        Archivo.add(Guardar);
-
-        Exportar.setText("Exportar");
-        Archivo.add(Exportar);
-
-        jMenuBar1.add(Archivo);
-
         Ventanas.setText("Ventanas");
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/punt.png"))); // NOI18N
@@ -229,6 +216,14 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         });
         Ventanas.add(jMenuItem4);
 
+        jMenuItem1.setText("Registros");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        Ventanas.add(jMenuItem1);
+
         jMenuBar1.add(Ventanas);
 
         VAdicional.setText("Venta Adicional");
@@ -242,17 +237,6 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         VAdicional.add(PV);
 
         jMenuBar1.add(VAdicional);
-
-        Crear.setText("Crear");
-        Crear.setActionCommand("");
-
-        Tabla.setText("Tabla");
-        Crear.add(Tabla);
-
-        BD.setText("Base de Datos");
-        Crear.add(BD);
-
-        jMenuBar1.add(Crear);
 
         Acerca.setText("Acerca de...");
 
@@ -299,23 +283,22 @@ public class MFrame extends javax.swing.JFrame implements Runnable {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        CambiarCarta("Card4");
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Acerca;
     private javax.swing.JLabel Actualizando;
-    private javax.swing.JMenu Archivo;
-    private javax.swing.JMenuItem BD;
-    private javax.swing.JMenu Crear;
-    private javax.swing.JMenuItem Exportar;
-    private javax.swing.JMenuItem Guardar;
     private javax.swing.JMenuItem PV;
     private javax.swing.JMenu Salir;
     private javax.swing.JMenuItem Shift;
-    private javax.swing.JMenuItem Tabla;
     private javax.swing.JMenu VAdicional;
     private javax.swing.JMenu Ventanas;
     private javax.swing.JLabel conectadoa;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
